@@ -16,6 +16,8 @@ namespace Streamish.Models
         [Required]
         public string Url { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateCreated { get; set; }
 
         public int UserProfileId { get; set; }
