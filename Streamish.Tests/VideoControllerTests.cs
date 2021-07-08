@@ -178,6 +178,26 @@ namespace Streamish.Tests
             var videoFromDb = repo.InternalData.FirstOrDefault(p => p.Id == testVideoId);
             Assert.Null(videoFromDb);
         }
+        //Create a test list of videos
+        //Search through the title and description of each video by a search criterion
+        //Return the videos that meet the criterion
+
+        [Fact]
+        public void Search_Method_Returns_A_List_Of_Videos()
+        {
+            var matchingVideos = 1;
+            var videos = CreateTestVideos(5);
+
+            var repo = new InMemoryVideoRepository(videos);
+            var controller = new VideoController(repo);
+
+            var result = controller.Search("title 1", true);
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var actualVideo = Assert.IsType<List<Video>>(okResult.Value);
+
+            Assert.Equal(matchingVideos, actualVideo.Count);
+        }
 
         private List<Video> CreateTestVideos(int count)
         {
