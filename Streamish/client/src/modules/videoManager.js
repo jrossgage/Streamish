@@ -15,4 +15,7 @@ export const addVideo = (video) => {
     });
 };
 
-export const searchVideo = () =>
+export const searchVideos = (string) => {
+    return fetch(baseUrl + '/search?q=' + string)
+        .then((res) => res.json())
+};
