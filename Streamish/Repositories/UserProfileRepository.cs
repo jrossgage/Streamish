@@ -107,7 +107,7 @@ namespace Streamish.Repositories
 
                             v.Id as VideoId, v.Title, v.Description, v.Url, v.DateCreated, v.UserProfileId
                             FROM UserProfile up
-                           left Join Video v on up.Id = v.UserProfileId
+                           Join Video v on up.Id = v.UserProfileId
                            WHERE up.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);

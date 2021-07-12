@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { addVideo } from "../modules/videoManager"
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { addVideo } from "../modules/videoManager";
+import { useHistory } from "react-router";
 
-export const VideoForm = ({ getVideos }) => {
+const VideoForm = () => {
     let emptyVideo = {
         title: "",
         description: "",
         url: ""
     }
 
+    const history = useHistory();
     const [isLoading, setIsLoading] = useState(false);
 
     const [video, setVideo] = useState(emptyVideo);
@@ -35,58 +38,41 @@ export const VideoForm = ({ getVideos }) => {
             window.alert("Please add a Title and Url")
             setIsLoading(false)
         } else {
-            addVideo(video)
-                .then(() => getVideos())
-                .then(() => setIsLoading(false))
-            setVideo(emptyVideo)
+            addVideo(video).then((p) => {
+                // Navigate the user back to the home route
+                history.push("/");
+            });
 
         }
-
     }
 
 
+
+
+
     return (
-        <>
-            {/* <div className="hero is-small is-primary"> */}
-            <h2 className="hero-body">
-                <p className="title">Create a New Video</p>
-            </h2>
-            {/* </div> */}
-
-
-            <fieldset className="field">
-
-
-            </fieldset>
-            <fieldset className="field">
-                <label className="label is-medium">Title:</label>
-                <div className="control">
-                    <input type="text" id="title" onChange={handleControlledInputChange} className="input" placeholder="Title" value={video.title} />
-                </div>
-            </fieldset>
-            <fieldset className="field">
-                <label className="label is-medium">Url:</label>
-                <div className="control">
-                    <input type="text" id="url" onChange={handleControlledInputChange} className="input" placeholder="Url" value={video.url} />
-                </div>
-            </fieldset>
-            <fieldset className="field">
-                <label className="label is-medium">Description:</label>
-                <div className="control">
-                    <textarea type="textarea" id="description" onChange={handleControlledInputChange} className="textarea" placeholder="Description" value={video.description} />
-                </div>
-
-            </fieldset>
-
-            <button disabled={isLoading} className="button is-primary"
-                onClick={handleClickSaveVideo}>
-                Save
-            </button>
-
-            {/* <button className="button is-light"
-                onClick={handleClickGoBack}>
-                Cancel
-            </button> */}
-        </>
+        <Form>
+            <FormGroup>
+                <Label for="title">Title</Label>
+                <Input type="text" name="title" id="title" placeholder="video title"
+                    value={video.title}
+                    onChange={handleControlledInputChange} />
+            </FormGroup>
+            <FormGroup>
+                <Label for="url">URL</Label>
+                <Input type="text" name="url" id="url" placeholder="video link"
+                    value={video.url}
+                    onChange={handleControlledInputChange} />
+            </FormGroup>
+            <FormGroup>
+                <Label for="description">Description</Label>
+                <Input type="textarea" name="description" id="description"
+                    value={video.description}
+                    onChange={handleControlledInputChange} />
+            </FormGroup>
+            <Button className="btn btn-primary" onClick={handleClickSaveVideo}>Submit</Button>
+        </Form>
     )
+
 }
+export default VideoForm;

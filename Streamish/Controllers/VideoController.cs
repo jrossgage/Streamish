@@ -73,7 +73,7 @@ namespace Streamish.Controllers
                 //  https://www.youtube.com/embed/sstOXCQ-EG0
 
                 // If this isn't a YouTube video, we should just give up
-                if (!video.Url.Contains("youtube"))
+                if (!video.Url.Contains("youtube") || !video.Url.Contains("vimeo"))
                 {
                     return BadRequest();
                 }

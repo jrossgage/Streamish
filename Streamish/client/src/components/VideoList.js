@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Video from './Video';
 import { getAllVideos, searchVideos } from "../modules/videoManager";
-import { VideoForm } from "./VideoForm";
+
 
 const VideoList = () => {
     const [videos, setVideos] = useState([]);
@@ -32,8 +32,6 @@ const VideoList = () => {
                 <div >
                     <input type='text' className="search" required onChange={handleSearch} id="search_box" placeholder="Search" />
                 </div>
-
-                <VideoForm getVideos={getVideos} />
 
                 <div className="row justify-content-center">
                     {videos.map((video) => (
